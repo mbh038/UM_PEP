@@ -1,0 +1,7 @@
+text = "X-DSPAM-Confidence:    0.8475";
+
+cpos=text.find(":") #find position of the colon
+num=text[cpos+1:] #extract substring for all of text beyond the colon
+num=num.strip() # strip off the white spaces
+num=float(num) # convert to float
+print num # print
