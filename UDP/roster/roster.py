@@ -44,7 +44,7 @@ for entry in json_data:
     title = entry[1];
     role=entry[2];
 
-    print name, title
+    #print name, title
 
     cur.execute('''INSERT OR IGNORE INTO User (name) 
         VALUES ( ? )''', ( name, ) )
@@ -61,3 +61,13 @@ for entry in json_data:
         ( user_id, course_id,role) )
 
     conn.commit()
+    
+cur.executescript('''
+SELECT User.name || Course.title || Member.role AS X FROM 
+    User JOIN Member JOIN Course 
+    ON User.id = Member.user_id AND Member.course_id = Course.id
+    ORDER BY X
+''')
+hexCode = cur.fetchone()[0]
+conn.commit()
+print hexCode
